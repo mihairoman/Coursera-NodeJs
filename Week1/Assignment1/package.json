@@ -1,0 +1,25 @@
+{
+  "name": "assignment1",
+  "version": "1.0.0",
+  "description": "Assignment 1 for the NodeJs Coursera course",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mihairoman/Coursera-NodeJs.git"
+  },
+  "author": "Mihai Roman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mihairoman/Coursera-NodeJs/issues"
+  },
+  "homepage": "https://github.com/mihairoman/Coursera-NodeJs#readme"
+}

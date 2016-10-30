@@ -1,9 +1,6 @@
 var express = require('express'),
     bodyParser = require('body-parser');
 
-var hostname = 'localhost',
-    port = 3000;
-
 var app = express();
 
 var dishRouter = express.Router();
@@ -44,11 +41,3 @@ dishRouter.route('/:dishId')
     });
 
 module.exports = dishRouter;
-
-
-// app.use('/dishes', dishRouter);
-// app.use(express.static(__dirname + '/public'));
-//
-// app.listen(port, hostname, function() {
-//     console.log(`Server running at http://${hostname}:${port}/`);
-// });
