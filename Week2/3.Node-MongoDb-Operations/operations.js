@@ -29,7 +29,7 @@ exports.removeDocument = function(db, document, collection, callback) {
     });
 };
 
-exports.updateDocument = function(db, document, collection, callback) {
+exports.updateDocument = function(db, document, update, collection, callback) {
     //get the documents collection
     var coll = db.collection(collection);
     //insert documents
