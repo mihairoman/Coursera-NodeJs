@@ -40,7 +40,7 @@ exports.verifyAdmin = function(req, res, next) {
     if (isAdmin) {
         next();
     } else {
-        var err = new Error('You don\'t have admin privilegies. ');
+        var err = new Error('You don\'t have admin privileges. ');
         err.status = 403;
         return next(err);
     }
