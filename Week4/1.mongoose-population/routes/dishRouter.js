@@ -49,7 +49,6 @@ dishRouter.route('/:dishId')
 
     })
     .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
-
         Dishes.findByIdAndUpdate(req.params.dishId, {
             $set: req.body
         }, {
@@ -71,8 +70,7 @@ dishRouter.route('/:dishId')
 
 dishRouter.route('/:dishId/comments')
     .all(Verify.verifyOrdinaryUser)
-    .get(Verify.verifyOrdinaryUser, function(req, res, next) {
-
+    .get(function(req, res, next) {
         Dishes.findById(req.params.dishId)
             .populate('comments.postedBy')
             .exec(function(err, dish) {
@@ -80,15 +78,17 @@ dishRouter.route('/:dishId/comments')
                 res.json(dish.comments);
             });
     })
-    .post(Verify.verifyOrdinaryUser, function(req, res, next) {
-        if (err) throw err;
+    .post(function(req, res, next) {
 
-        dish.comments.push(req.body);
-
-        dish.save(function(err, dish) {
+        Dishes.findById(req.params.dishId, function(err, dish) {
             if (err) throw err;
-            console.log('Updated Comments for ', dish);
-            res.json(dish);
+            dish.comments.push(req.body);
+            dish.save(function(err, dish) {
+                if (err) throw err;
+                console.log('Updated Comments for ', dish);
+                res.json(dish);
+            });
+
         });
     })
     .delete(Verify.verifyAdmin, function(req, res, next) {
@@ -112,7 +112,7 @@ dishRouter.route('/:dishId/comments')
 
 dishRouter.route('/:dishId/comments/:commentId')
     .all(Verify.verifyOrdinaryUser)
-    .get(Verify.verifyOrdinaryUser, function(req, res, next) {
+    .get(function(req, res, next) {
         Dishes.findById(req.params.dishId)
             .populate('comments.postedBy')
             .exec(function(err, dish) {
@@ -120,21 +120,21 @@ dishRouter.route('/:dishId/comments/:commentId')
                 res.json(dish.comments.id(req.params.commentId));
             });
     })
-    .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
-        Dishes.findById(req.params.dishId, function(err, dish) {
-            if (err) throw err;
-
-            req.body.postedBy = req.decoded._doc._id;
-
-            dish.comments.push(req.body);
-
-            dish.save(function(err, dish) {
-                if (err) throw err;
-                console.log('Updated Comments!');
-                res.json(dish);
-            });
-        });
-    })
+    // .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
+    //     Dishes.findById(req.params.dishId, function(err, dish) {
+    //         if (err) throw err;
+    //
+    //         req.body.postedBy = req.decoded._doc._id;
+    //
+    //         dish.comments.push(req.body);
+    //
+    //         dish.save(function(err, dish) {
+    //             if (err) throw err;
+    //             console.log('Updated Comments!');
+    //             res.json(dish);
+    //         });
+    //     });
+    // })
     .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Dishes.findById(req.params.dishId, function(err, dish) {
             if (err) throw err;

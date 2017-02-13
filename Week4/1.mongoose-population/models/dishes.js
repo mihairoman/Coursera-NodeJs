@@ -16,8 +16,7 @@ module.exports = function(mongoose) {
             required: true
         },
         author: {
-            type: String,
-            required: true
+            type: String
         },
         postedBy: {
             type: mongoose.Schema.Types.ObjectId,
